@@ -2,16 +2,16 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>Trung Thu Vui Vẻ</title>
+  <title>Trung Thu Lãng Mạn</title>
   <style>
     body {
       margin: 0;
       overflow: hidden;
-      background: url("https://png.pngtree.com/thumb_back/fw800/background/20230927/pngtree-mid-autumn-festival-night-scenery-with-bright-full-moon-image_13343079.jpg") no-repeat center center/cover;
       font-family: 'Segoe UI', sans-serif;
+      background: radial-gradient(circle at top, #0a0a2a, #000); /* nền trời đêm */
     }
 
-    /* Nền sao lấp lánh */
+    /* Sao lấp lánh */
     .star {
       position: absolute;
       width: 2px;
@@ -19,22 +19,42 @@
       background: white;
       border-radius: 50%;
       animation: twinkle 2s infinite alternate;
+      z-index: 10; /* đảm bảo nổi trên cùng */
+      box-shadow: 0 0 6px white; /* tạo ánh sáng */
+    }
+    @keyframes twinkle {
+      from { opacity: 0.2; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1.4); }
     }
 
-    @keyframes twinkle {
-      from { opacity: 0.2; }
-      to { opacity: 1; }
+    /* Đèn lồng bay */
+    .lantern {
+      position: absolute;
+      width: 30px;
+      height: 50px;
+      background: orange;
+      border-radius: 10px;
+      box-shadow: 0 0 20px gold;
+      animation: floatLantern 25s linear infinite;
+      z-index: 6;
+    }
+    @keyframes floatLantern {
+      0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
+      20% { opacity: 1; }
+      100% { transform: translateY(-20vh) scale(1); opacity: 0; }
     }
 
     /* Chữ bay */
     .floating-text {
       position: absolute;
-      font-size: 20px;
+      font-size: 22px;
       color: pink;
-      animation: floatText 12s linear infinite;
+      font-weight: bold;
+      animation: floatText 15s linear infinite;
       white-space: nowrap;
+      text-shadow: 0 0 10px #ffb6c1;
+      z-index: 8;
     }
-
     @keyframes floatText {
       0% { transform: translateY(100vh) translateX(0); opacity: 0; }
       20% { opacity: 1; }
@@ -44,18 +64,18 @@
     /* Ảnh nổi */
     .floating-img {
       position: absolute;
-      width: 80px;
-      height: 80px;
-      border-radius: 12px;
+      width: 100px;
+      height: 100px;
+      border-radius: 15px;
       object-fit: cover;
-      cursor: pointer;
-      animation: floatImg 18s linear infinite;
+      animation: floatImg 20s linear infinite;
+      box-shadow: 0 0 20px white;
+      z-index: 7;
     }
-
     @keyframes floatImg {
-      0% { transform: translateY(100vh); opacity: 0; }
+      0% { transform: translateY(100vh) scale(0.8); opacity: 0; }
       20% { opacity: 1; }
-      100% { transform: translateY(-30vh); opacity: 0; }
+      100% { transform: translateY(-30vh) scale(1.2); opacity: 0; }
     }
 
     /* Icon bật nhạc */
@@ -63,36 +83,35 @@
       position: fixed;
       top: 20px;
       right: 20px;
-      width: 60px;
-      height: 60px;
+      width: 70px;
+      height: 70px;
       border-radius: 50%;
       background: gold;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      box-shadow: 0 0 15px yellow;
-      z-index: 2000;
+      box-shadow: 0 0 20px yellow;
+      font-size: 28px;
+      z-index: 20;
     }
 
-    /* Popup ảnh to */
-    .popup {
-      display: none;
+    /* Chị Hằng & Thỏ */
+    .hangnga {
       position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.8);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 1500;
+      bottom: 0;
+      right: 0;
+      width: 350px;
+      pointer-events: none;
+      z-index: 5;
     }
-
-    .popup img {
-      max-width: 80%;
-      max-height: 80%;
-      border-radius: 15px;
-      box-shadow: 0 0 20px white;
+    .tho {
+      position: fixed;
+      bottom: 20px;
+      left: 0;
+      width: 250px;
+      pointer-events: none;
+      z-index: 5;
     }
   </style>
 </head>
@@ -100,37 +119,45 @@
 
   <!-- Nhạc nền -->
   <audio id="bg-music" loop>
-    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_0bbcbad8b6.mp3?filename=romantic-guitar-ambient-110624.mp3" type="audio/mpeg">
   </audio>
 
   <!-- Nút bật/tắt nhạc -->
   <div class="music-btn" onclick="toggleMusic()">🎵</div>
 
-  <!-- Popup ảnh -->
-  <div id="popup" class="popup" onclick="closePopup()">
-    <img id="popup-img" src="">
-  </div>
+  <!-- Hình chị Hằng và Thỏ -->
+<img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgqzcjB-IPGxGNX0L6ZdioXQDEHAfo5z496sLVbyUZXt7H_9xI3jFQZdRlZBLm5Zeu7s6dou1oOVmW9a0X-G54lB9ZU_PqPWcJY-jwa9nwxJT0BWFmKsvkcFAikhygnOoLuHmrpcNuLn2Fi49AQD3Qmjk65nF1Ff_PLN3-NxU4xAuBalD3tX9ECKvsQQQA/s400-rw/(%20Anhpng.com%20)%20-%20%E1%BA%A2NH%20PNG%20TRUNG%20THU%20(79).png" class="hangnga">
+  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgqzcjB-IPGxGNX0L6ZdioXQDEHAfo5z496sLVbyUZXt7H_9xI3jFQZdRlZBLm5Zeu7s6dou1oOVmW9a0X-G54lB9ZU_PqPWcJY-jwa9nwxJT0BWFmKsvkcFAikhygnOoLuHmrpcNuLn2Fi49AQD3Qmjk65nF1Ff_PLN3-NxU4xAuBalD3tX9ECKvsQQQA/s400-rw/(%20Anhpng.com%20)%20-%20%E1%BA%A2NH%20PNG%20TRUNG%20THU%20(79).png" class="tho">
 
   <script>
     const texts = [
-      "Trung thu vui vẻ", "Mãi yêu em", "Cảm ơn vì tất cả",
-      "Thúy Lớn", "Yêu em rất nhiều", "Thúy Lớn"
+      "Trung thu vui vẻ 💖", "Mãi yêu em 🌸", "Cảm ơn vì tất cả ✨",
+      "Luôn vui vẻ bên nhau 🎉", "Mãi một tình yêu ❤️"
     ];
 
     const images = [
-      "https://scontent.fdad3-1.fna.fbcdn.net/v/t39.30808-1/486414361_1177574393861145_871280043488004998_n.jpg",
-      "https://scontent.fdad3-5.fna.fbcdn.net/v/t39.30808-6/484981681_1174230090862242_6075764967752921202_n.jpg",
-      "https://scontent.fdad3-5.fna.fbcdn.net/v/t39.30808-6/485032239_1174230147528903_8489162216909775900_n.jpg"
+      "https://scontent.fdad3-1.fna.fbcdn.net/v/t39.30808-1/486414361_1177574393861145_871280043488004998_n.jpg?stp=dst-jpg_s200x200_tt6&_nc_cat=111&ccb=1-7&_nc_sid=e99d92&_nc_ohc=VqPDl96gYb8Q7kNvwEmoG6W&_nc_oc=Adlg4aWnlWqepGxuW53hIs1rUukrxn7p0nMp2Dyn7yMPPotWpfB3bxxL35ayDbs8hhA&_nc_zt=24&_nc_ht=scontent.fdad3-1.fna&_nc_gid=y7TCRrknYF62sShAP2OfbA&oh=00_AffWW7G640VvlmcuHQZD2ddzTagQJfNGHHPWRBApDjKDwg&oe=68E94C25",
+      "https://scontent.fdad3-1.fna.fbcdn.net/v/t39.30808-6/484977565_1174230104195574_5667935876244671168_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=833d8c&_nc_ohc=S45uJm9ZmnsQ7kNvwGpcMnn&_nc_oc=AdnSZeI5pGtuTCit18Ge1XPfwTsSwuoPcYd_4vtk5GEJfqGY2aBn3FxcEe8ScCU7n2c&_nc_zt=23&_nc_ht=scontent.fdad3-1.fna&_nc_gid=MDXuc1x13EzHawEDAVynNA&oh=00_AfeWteznFXThBKLXX5uY1FgoVH0Z4DDayVXD-WEDqhqJew&oe=68E95653",
+      "https://scontent.fdad3-5.fna.fbcdn.net/v/t39.30808-6/484981681_1174230090862242_6075764967752921202_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=833d8c&_nc_ohc=vDC3WJshIXAQ7kNvwEaMoOQ&_nc_oc=Adku9J3gHWsABKqdK--bsye9iJa21fZ7CeEuEIEURkIsN9h4y5YxV75l4C9u9o8kN0k&_nc_zt=23&_nc_ht=scontent.fdad3-5.fna&_nc_gid=jjPnWlUAD9Ktdm_AECkxPA&oh=00_AfesInhzq4Eoh-IzdPGK86ZYSBiCFtL_U5pp3-1a7lYBUw&oe=68E95D64"
     ];
 
-    // Thêm sao ngẫu nhiên
-    for (let i = 0; i < 80; i++) {
+    // Sinh sao
+    for (let i = 0; i < 150; i++) {
       let star = document.createElement("div");
       star.className = "star";
       star.style.left = Math.random() * window.innerWidth + "px";
       star.style.top = Math.random() * window.innerHeight + "px";
       document.body.appendChild(star);
     }
+
+    // Sinh đèn lồng
+    setInterval(() => {
+      let lantern = document.createElement("div");
+      lantern.className = "lantern";
+      lantern.style.left = Math.random() * (window.innerWidth - 30) + "px";
+      document.body.appendChild(lantern);
+      setTimeout(() => lantern.remove(), 25000);
+    }, 4000);
 
     // Sinh chữ ngẫu nhiên
     setInterval(() => {
@@ -139,37 +166,24 @@
       text.innerText = texts[Math.floor(Math.random() * texts.length)];
       text.style.left = Math.random() * window.innerWidth + "px";
       document.body.appendChild(text);
-
-      setTimeout(() => text.remove(), 12000);
-    }, 2000);
+      setTimeout(() => text.remove(), 15000);
+    }, 3000);
 
     // Sinh ảnh ngẫu nhiên
     setInterval(() => {
       let img = document.createElement("img");
       img.className = "floating-img";
       img.src = images[Math.floor(Math.random() * images.length)];
-      img.style.left = Math.random() * (window.innerWidth - 100) + "px";
-      img.onclick = () => openPopup(img.src);
+      img.style.left = Math.random() * (window.innerWidth - 120) + "px";
       document.body.appendChild(img);
-
-      setTimeout(() => img.remove(), 18000);
-    }, 5000);
+      setTimeout(() => img.remove(), 20000);
+    }, 7000);
 
     // Điều khiển nhạc
     const music = document.getElementById("bg-music");
     function toggleMusic() {
       if (music.paused) music.play();
       else music.pause();
-    }
-
-    // Popup ảnh
-    function openPopup(src) {
-      document.getElementById("popup-img").src = src;
-      document.getElementById("popup").style.display = "flex";
-    }
-
-    function closePopup() {
-      document.getElementById("popup").style.display = "none";
     }
   </script>
 </body>
