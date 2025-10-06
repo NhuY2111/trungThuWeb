@@ -7,7 +7,7 @@
     body {
       margin: 0;
       overflow: hidden;
-      background: black;
+      background: url("https://png.pngtree.com/thumb_back/fw800/background/20230927/pngtree-mid-autumn-festival-night-scenery-with-bright-full-moon-image_13343079.jpg") no-repeat center center/cover;
       font-family: 'Segoe UI', sans-serif;
     }
 
@@ -48,6 +48,7 @@
       height: 80px;
       border-radius: 12px;
       object-fit: cover;
+      cursor: pointer;
       animation: floatImg 18s linear infinite;
     }
 
@@ -71,6 +72,27 @@
       justify-content: center;
       cursor: pointer;
       box-shadow: 0 0 15px yellow;
+      z-index: 2000;
+    }
+
+    /* Popup ảnh to */
+    .popup {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1500;
+    }
+
+    .popup img {
+      max-width: 80%;
+      max-height: 80%;
+      border-radius: 15px;
+      box-shadow: 0 0 20px white;
     }
   </style>
 </head>
@@ -78,11 +100,16 @@
 
   <!-- Nhạc nền -->
   <audio id="bg-music" loop>
-    <source src="https://soundcloud.com/user-565458536/c-m-n-v-t-t-c-lofi-ver-anh-qu?si=bc4faef7ebdb4da78922c356dbacb527&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing" type="audio/mpeg">
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
   </audio>
 
   <!-- Nút bật/tắt nhạc -->
   <div class="music-btn" onclick="toggleMusic()">🎵</div>
+
+  <!-- Popup ảnh -->
+  <div id="popup" class="popup" onclick="closePopup()">
+    <img id="popup-img" src="">
+  </div>
 
   <script>
     const texts = [
@@ -91,9 +118,9 @@
     ];
 
     const images = [
-      "https://scontent.fdad3-1.fna.fbcdn.net/v/t39.30808-1/486414361_1177574393861145_871280043488004998_n.jpg?stp=dst-jpg_s200x200_tt6&_nc_cat=111&ccb=1-7&_nc_sid=e99d92&_nc_ohc=VqPDl96gYb8Q7kNvwEmoG6W&_nc_oc=Adlg4aWnlWqepGxuW53hIs1rUukrxn7p0nMp2Dyn7yMPPotWpfB3bxxL35ayDbs8hhA&_nc_zt=24&_nc_ht=scontent.fdad3-1.fna&_nc_gid=irF64ttBeORAeVhTiEN7Sg&oh=00_Afd0RX7whRJzqjxQnIq4B4jiQ98Q5H2kOetp2sf2bhxcDQ&oe=68E94C25",
-      "https://scontent.fdad3-5.fna.fbcdn.net/v/t39.30808-6/484981681_1174230090862242_6075764967752921202_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=833d8c&_nc_ohc=vDC3WJshIXAQ7kNvwEaMoOQ&_nc_oc=Adku9J3gHWsABKqdK--bsye9iJa21fZ7CeEuEIEURkIsN9h4y5YxV75l4C9u9o8kN0k&_nc_zt=23&_nc_ht=scontent.fdad3-5.fna&_nc_gid=X5FiYLlvosV5-KmYhXPMdA&oh=00_Aff0YZynK7e9ymcejZ_VN7Kr-AzUnHpTMbSjjXvTji1acg&oe=68E95D64",
-      "https://scontent.fdad3-5.fna.fbcdn.net/v/t39.30808-6/485032239_1174230147528903_8489162216909775900_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=833d8c&_nc_ohc=hL85FuwY0_4Q7kNvwHikW8T&_nc_oc=AdnSBtpSFDP9Gnb3o4E1tvcrZYc-3C8dncwl-StxpM5cBNrTCgPOvbYmgujX4QtnDiM&_nc_zt=23&_nc_ht=scontent.fdad3-5.fna&_nc_gid=JkZB1WxxmNJUw4eezs6PYA&oh=00_Afeg5mnMPRTZnd2fWTy33G3Rgh685fUq1KKln7EbyRZH1g&oe=68E94A62"
+      "https://scontent.fdad3-1.fna.fbcdn.net/v/t39.30808-1/486414361_1177574393861145_871280043488004998_n.jpg",
+      "https://scontent.fdad3-5.fna.fbcdn.net/v/t39.30808-6/484981681_1174230090862242_6075764967752921202_n.jpg",
+      "https://scontent.fdad3-5.fna.fbcdn.net/v/t39.30808-6/485032239_1174230147528903_8489162216909775900_n.jpg"
     ];
 
     // Thêm sao ngẫu nhiên
@@ -122,6 +149,7 @@
       img.className = "floating-img";
       img.src = images[Math.floor(Math.random() * images.length)];
       img.style.left = Math.random() * (window.innerWidth - 100) + "px";
+      img.onclick = () => openPopup(img.src);
       document.body.appendChild(img);
 
       setTimeout(() => img.remove(), 18000);
@@ -132,6 +160,16 @@
     function toggleMusic() {
       if (music.paused) music.play();
       else music.pause();
+    }
+
+    // Popup ảnh
+    function openPopup(src) {
+      document.getElementById("popup-img").src = src;
+      document.getElementById("popup").style.display = "flex";
+    }
+
+    function closePopup() {
+      document.getElementById("popup").style.display = "none";
     }
   </script>
 </body>
