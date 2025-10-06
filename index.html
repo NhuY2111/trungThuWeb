@@ -8,26 +8,23 @@
       margin: 0;
       overflow: hidden;
       font-family: 'Segoe UI', sans-serif;
-      background: radial-gradient(circle at top, #0a0a2a, #000); /* nền trời đêm */
+      background: #000; /* nền đen */
     }
 
     /* Sao lấp lánh */
     .star {
       position: absolute;
-      width: 2px;
-      height: 2px;
-      background: white;
+      width: 3px;
+      height: 3px;
       border-radius: 50%;
       animation: twinkle 2s infinite alternate;
-      z-index: 10; /* đảm bảo nổi trên cùng */
-      box-shadow: 0 0 6px white; /* tạo ánh sáng */
     }
     @keyframes twinkle {
       from { opacity: 0.2; transform: scale(0.8); }
-      to { opacity: 1; transform: scale(1.4); }
+      to { opacity: 1; transform: scale(1.6); }
     }
 
-    /* Đèn lồng bay */
+    /* Lồng đèn bay */
     .lantern {
       position: absolute;
       width: 30px;
@@ -36,7 +33,6 @@
       border-radius: 10px;
       box-shadow: 0 0 20px gold;
       animation: floatLantern 25s linear infinite;
-      z-index: 6;
     }
     @keyframes floatLantern {
       0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
@@ -53,7 +49,6 @@
       animation: floatText 15s linear infinite;
       white-space: nowrap;
       text-shadow: 0 0 10px #ffb6c1;
-      z-index: 8;
     }
     @keyframes floatText {
       0% { transform: translateY(100vh) translateX(0); opacity: 0; }
@@ -70,7 +65,6 @@
       object-fit: cover;
       animation: floatImg 20s linear infinite;
       box-shadow: 0 0 20px white;
-      z-index: 7;
     }
     @keyframes floatImg {
       0% { transform: translateY(100vh) scale(0.8); opacity: 0; }
@@ -103,7 +97,6 @@
       right: 0;
       width: 350px;
       pointer-events: none;
-      z-index: 5;
     }
     .tho {
       position: fixed;
@@ -111,7 +104,6 @@
       left: 0;
       width: 250px;
       pointer-events: none;
-      z-index: 5;
     }
   </style>
 </head>
@@ -126,31 +118,33 @@
   <div class="music-btn" onclick="toggleMusic()">🎵</div>
 
   <!-- Hình chị Hằng và Thỏ -->
-<img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgqzcjB-IPGxGNX0L6ZdioXQDEHAfo5z496sLVbyUZXt7H_9xI3jFQZdRlZBLm5Zeu7s6dou1oOVmW9a0X-G54lB9ZU_PqPWcJY-jwa9nwxJT0BWFmKsvkcFAikhygnOoLuHmrpcNuLn2Fi49AQD3Qmjk65nF1Ff_PLN3-NxU4xAuBalD3tX9ECKvsQQQA/s400-rw/(%20Anhpng.com%20)%20-%20%E1%BA%A2NH%20PNG%20TRUNG%20THU%20(79).png" class="hangnga">
+  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgqzcjB-IPGxGNX0L6ZdioXQDEHAfo5z496sLVbyUZXt7H_9xI3jFQZdRlZBLm5Zeu7s6dou1oOVmW9a0X-G54lB9ZU_PqPWcJY-jwa9nwxJT0BWFmKsvkcFAikhygnOoLuHmrpcNuLn2Fi49AQD3Qmjk65nF1Ff_PLN3-NxU4xAuBalD3tX9ECKvsQQQA/s400-rw/(%20Anhpng.com%20)%20-%20%E1%BA%A2NH%20PNG%20TRUNG%20THU%20(79).png" class="hangnga">
   <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgqzcjB-IPGxGNX0L6ZdioXQDEHAfo5z496sLVbyUZXt7H_9xI3jFQZdRlZBLm5Zeu7s6dou1oOVmW9a0X-G54lB9ZU_PqPWcJY-jwa9nwxJT0BWFmKsvkcFAikhygnOoLuHmrpcNuLn2Fi49AQD3Qmjk65nF1Ff_PLN3-NxU4xAuBalD3tX9ECKvsQQQA/s400-rw/(%20Anhpng.com%20)%20-%20%E1%BA%A2NH%20PNG%20TRUNG%20THU%20(79).png" class="tho">
 
   <script>
     const texts = [
-      "Trung thu vui vẻ 💖", "Mãi yêu em 🌸", "Cảm ơn vì tất cả ✨",
-      "Luôn vui vẻ bên nhau 🎉", "Mãi một tình yêu ❤️"
+      "Trung thu vui vẻ 💖", "Mãi yêu em Thúy Lớn 🌸", "Cảm ơn vì tất cả ✨",
+      "Luôn vui vẻ bên nhau 🎉", "Mãi một tình yêu ❤️", "Thúy Lớnnnn"
     ];
 
     const images = [
-      "https://scontent.fdad3-1.fna.fbcdn.net/v/t39.30808-1/486414361_1177574393861145_871280043488004998_n.jpg?stp=dst-jpg_s200x200_tt6&_nc_cat=111&ccb=1-7&_nc_sid=e99d92&_nc_ohc=VqPDl96gYb8Q7kNvwEmoG6W&_nc_oc=Adlg4aWnlWqepGxuW53hIs1rUukrxn7p0nMp2Dyn7yMPPotWpfB3bxxL35ayDbs8hhA&_nc_zt=24&_nc_ht=scontent.fdad3-1.fna&_nc_gid=y7TCRrknYF62sShAP2OfbA&oh=00_AffWW7G640VvlmcuHQZD2ddzTagQJfNGHHPWRBApDjKDwg&oe=68E94C25",
-      "https://scontent.fdad3-1.fna.fbcdn.net/v/t39.30808-6/484977565_1174230104195574_5667935876244671168_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=833d8c&_nc_ohc=S45uJm9ZmnsQ7kNvwGpcMnn&_nc_oc=AdnSZeI5pGtuTCit18Ge1XPfwTsSwuoPcYd_4vtk5GEJfqGY2aBn3FxcEe8ScCU7n2c&_nc_zt=23&_nc_ht=scontent.fdad3-1.fna&_nc_gid=MDXuc1x13EzHawEDAVynNA&oh=00_AfeWteznFXThBKLXX5uY1FgoVH0Z4DDayVXD-WEDqhqJew&oe=68E95653",
-      "https://scontent.fdad3-5.fna.fbcdn.net/v/t39.30808-6/484981681_1174230090862242_6075764967752921202_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=833d8c&_nc_ohc=vDC3WJshIXAQ7kNvwEaMoOQ&_nc_oc=Adku9J3gHWsABKqdK--bsye9iJa21fZ7CeEuEIEURkIsN9h4y5YxV75l4C9u9o8kN0k&_nc_zt=23&_nc_ht=scontent.fdad3-5.fna&_nc_gid=jjPnWlUAD9Ktdm_AECkxPA&oh=00_AfesInhzq4Eoh-IzdPGK86ZYSBiCFtL_U5pp3-1a7lYBUw&oe=68E95D64"
+      "https://scontent.fdad3-1.fna.fbcdn.net/v/t39.30808-6/484977565_1174230104195574_5667935876244671168_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=833d8c&_nc_ohc=S45uJm9ZmnsQ7kNvwGpcMnn&_nc_oc=AdnSZeI5pGtuTCit18Ge1XPfwTsSwuoPcYd_4vtk5GEJfqGY2aBn3FxcEe8ScCU7n2c&_nc_zt=23&_nc_ht=scontent.fdad3-1.fna&_nc_gid=ePMdm4LJw2EnRxxzdNixjA&oh=00_AfdocdILBUICplyryUjzE328l5KAhtXK6PxOcCZbAy0Xbw&oe=68E95653",
+      "https://scontent.fdad3-5.fna.fbcdn.net/v/t39.30808-6/484981681_1174230090862242_6075764967752921202_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=833d8c&_nc_ohc=vDC3WJshIXAQ7kNvwEaMoOQ&_nc_oc=Adku9J3gHWsABKqdK--bsye9iJa21fZ7CeEuEIEURkIsN9h4y5YxV75l4C9u9o8kN0k&_nc_zt=23&_nc_ht=scontent.fdad3-5.fna&_nc_gid=WdenUq4r1hyVfYIgkCaxqA&oh=00_AfdE-8mpIqN6oumDxQ8xXyqQ0qe1N1EPKJmOowun_myNEw&oe=68E95D64",
+      "https://scontent.fdad3-1.fna.fbcdn.net/v/t39.30808-1/486414361_1177574393861145_871280043488004998_n.jpg?stp=dst-jpg_s200x200_tt6&_nc_cat=111&ccb=1-7&_nc_sid=e99d92&_nc_ohc=VqPDl96gYb8Q7kNvwEmoG6W&_nc_oc=Adlg4aWnlWqepGxuW53hIs1rUukrxn7p0nMp2Dyn7yMPPotWpfB3bxxL35ayDbs8hhA&_nc_zt=24&_nc_ht=scontent.fdad3-1.fna&_nc_gid=w9gKXB00s5878cr01fMTnw&oh=00_Afe5MuX4LRbL3mHNtnyFvk7TO2g-l4vBolCH5jy-afyvjA&oe=68E98465"
     ];
 
     // Sinh sao
-    for (let i = 0; i < 150; i++) {
+    for (let i = 0; i < 120; i++) {
       let star = document.createElement("div");
       star.className = "star";
       star.style.left = Math.random() * window.innerWidth + "px";
       star.style.top = Math.random() * window.innerHeight + "px";
+      const colors = ["#fff", "#ffe", "#aaf"];
+      star.style.background = colors[Math.floor(Math.random() * colors.length)];
       document.body.appendChild(star);
     }
 
-    // Sinh đèn lồng
+    // Sinh lồng đèn
     setInterval(() => {
       let lantern = document.createElement("div");
       lantern.className = "lantern";
