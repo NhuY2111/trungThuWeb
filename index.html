@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Trung Thu Vui Vẻ</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: black;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    /* Nền sao lấp lánh */
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: white;
+      border-radius: 50%;
+      animation: twinkle 2s infinite alternate;
+    }
+
+    @keyframes twinkle {
+      from { opacity: 0.2; }
+      to { opacity: 1; }
+    }
+
+    /* Chữ bay */
+    .floating-text {
+      position: absolute;
+      font-size: 20px;
+      color: pink;
+      animation: floatText 12s linear infinite;
+      white-space: nowrap;
+    }
+
+    @keyframes floatText {
+      0% { transform: translateY(100vh) translateX(0); opacity: 0; }
+      20% { opacity: 1; }
+      100% { transform: translateY(-20vh) translateX(50px); opacity: 0; }
+    }
+
+    /* Ảnh nổi */
+    .floating-img {
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      border-radius: 12px;
+      object-fit: cover;
+      animation: floatImg 18s linear infinite;
+    }
+
+    @keyframes floatImg {
+      0% { transform: translateY(100vh); opacity: 0; }
+      20% { opacity: 1; }
+      100% { transform: translateY(-30vh); opacity: 0; }
+    }
+
+    /* Icon bật nhạc */
+    .music-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: gold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 0 15px yellow;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Nhạc nền -->
+  <audio id="bg-music" loop>
+    <source src="your-music.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Nút bật/tắt nhạc -->
+  <div class="music-btn" onclick="toggleMusic()">🎵</div>
+
+  <script>
+    const texts = [
+      "Trung thu vui vẻ", "Mãi yêu em", "Cảm ơn vì tất cả",
+      "Luôn vui vẻ em nhé", "Yêu em rất nhiều", "Mãi một tình yêu"
+    ];
+
+    const images = [
+      "https://picsum.photos/200/200?1",
+      "https://picsum.photos/200/200?2",
+      "https://picsum.photos/200/200?3"
+    ];
+
+    // Thêm sao ngẫu nhiên
+    for (let i = 0; i < 80; i++) {
+      let star = document.createElement("div");
+      star.className = "star";
+      star.style.left = Math.random() * window.innerWidth + "px";
+      star.style.top = Math.random() * window.innerHeight + "px";
+      document.body.appendChild(star);
+    }
+
+    // Sinh chữ ngẫu nhiên
+    setInterval(() => {
+      let text = document.createElement("div");
+      text.className = "floating-text";
+      text.innerText = texts[Math.floor(Math.random() * texts.length)];
+      text.style.left = Math.random() * window.innerWidth + "px";
+      document.body.appendChild(text);
+
+      setTimeout(() => text.remove(), 12000);
+    }, 2000);
+
+    // Sinh ảnh ngẫu nhiên
+    setInterval(() => {
+      let img = document.createElement("img");
+      img.className = "floating-img";
+      img.src = images[Math.floor(Math.random() * images.length)];
+      img.style.left = Math.random() * (window.innerWidth - 100) + "px";
+      document.body.appendChild(img);
+
+      setTimeout(() => img.remove(), 18000);
+    }, 5000);
+
+    // Điều khiển nhạc
+    const music = document.getElementById("bg-music");
+    function toggleMusic() {
+      if (music.paused) music.play();
+      else music.pause();
+    }
+  </script>
+</body>
+</html>
